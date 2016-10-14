@@ -17,7 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MovieDetailActivity"></activity>
+        <activity android:name=".activities.MovieDetailActivity"
+            android:parentActivityName=".activities.MoviesActivity">
+
+        </activity>
+        <activity android:name=".activities.VideoPlayActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>
