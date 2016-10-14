@@ -1,9 +1,12 @@
 package com.example.abhishek.flickster.activities;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +45,8 @@ public class MoviesActivity extends AppCompatActivity {
     @BindColor(android.R.color.holo_orange_light) int orangeLight;
     @BindColor(android.R.color.holo_red_light) int redLight;
 
+    public static final String MOVIE_DETAIL_KEY = "movie";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,9 @@ public class MoviesActivity extends AppCompatActivity {
 
         // Fetch the movie data remotely and asynchronously
         fetchMovies();
+
+        //Setup onClick Listener for the list view
+        setupMovieSelectedListener();
     }
 
     private void loadSwipeRefresh() {
@@ -111,6 +119,8 @@ public class MoviesActivity extends AppCompatActivity {
 
                     moviesAdapter.addAll(movies);
 
+                    moviesAdapter.notifyDataSetChanged();
+
                     Log.d(LOG_TAG, movies.get(0).getOverview());
 
                 } catch (JSONException e) {
@@ -138,5 +148,21 @@ public class MoviesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    /**
+     * This method is called when the user click on the individual list item to view detail
+     */
+    public void setupMovieSelectedListener() {
+        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View item, int position, long rowId) {
+                Intent i = new Intent(MoviesActivity.this, MovieDetailActivity.class);
+                Movie movie = movies.get(position);
+                i.putExtra(MOVIE_DETAIL_KEY, movie);
+                startActivity(i);
+            }
+        });
     }
 }

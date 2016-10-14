@@ -6,13 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by abhishek on 10/11/16.
  */
 
-public class Movie {
+public class Movie implements Serializable {
 
     /** Tag for the log messages */
     private static final String LOG_TAG = Movie.class.getSimpleName();
@@ -74,7 +75,7 @@ public class Movie {
      * @return
      */
     public String getPosterPath() {
-        return mPosterPath;
+        return String.format("https://image.tmdb.org/t/p/w500/%s", mPosterPath);
     }
 
 
@@ -83,7 +84,7 @@ public class Movie {
      * @return
      */
     public String getBackdropPath() {
-        return mBackdropPath;
+        return String.format("https://image.tmdb.org/t/p/w780/%s", mBackdropPath);
     }
 
 
