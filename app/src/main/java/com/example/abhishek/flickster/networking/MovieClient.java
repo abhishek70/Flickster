@@ -37,8 +37,13 @@ public class MovieClient {
      * @param handler
      */
     public void getMovies(JsonHttpResponseHandler handler) {
+
         String url = API_BASE_URL;
+
+        // Setting URL parameters
         RequestParams params = new RequestParams("api_key", API_KEY);
+
+        // Prep and executing API Call
         client.get(url, params, handler);
     }
 

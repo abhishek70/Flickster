@@ -28,7 +28,9 @@ import static com.example.abhishek.flickster.R.id.ivMovieImage;
  */
 public class MoviesAdapter extends ArrayAdapter<Movie> {
 
-
+    /**
+     * View Holder Pattern
+     */
     static class ViewHolder {
 
         @BindView(R.id.tvTitle) TextView tvTitle;
@@ -41,25 +43,44 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param movies
+     */
     public MoviesAdapter(Context context, ArrayList<Movie> movies) {
         super(context, R.layout.adapter_item_movie, movies);
     }
 
 
+    /**
+     * Generating and return the single list item view
+     * @param position
+     * @param view
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+
+        // Fetching single movie details
         Movie movie = getItem(position);
 
+        // Instantiating view holder
         ViewHolder holder;
 
         if (view != null) {
+
             holder = (ViewHolder) view.getTag();
+
         } else {
+
+            // View is null then create the new list item using adapter_item_movie xml
             view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_movie, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
-        }
 
+        }
         holder.ivMovieImage.setImageResource(0);
         holder.tvTitle.setText(movie.getTitle());
         holder.tvOverview.setText(movie.getOverview());
