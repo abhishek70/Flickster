@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.abhishek.flickster.R;
@@ -28,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
+import static com.example.abhishek.flickster.R.id.linlaHeaderProgress;
 import static com.example.abhishek.flickster.R.id.swipeRefresh;
 import static com.example.abhishek.flickster.utils.Constant.MOVIE_DETAIL_KEY;
 
@@ -55,6 +58,7 @@ public class MoviesActivity extends AppCompatActivity {
     @BindColor(android.R.color.holo_green_light) int greenLight;
     @BindColor(android.R.color.holo_orange_light) int orangeLight;
     @BindColor(android.R.color.holo_red_light) int redLight;
+    @BindView(linlaHeaderProgress) LinearLayout movieLoader;
 
 
     /**
@@ -121,6 +125,12 @@ public class MoviesActivity extends AppCompatActivity {
         // AsyncHttp Client response handler
         movieClient.getMovies(new JsonHttpResponseHandler(){
 
+            @Override
+            public void onStart() {
+                super.onStart();
+                movieLoader.setVisibility(View.VISIBLE);
+
+            }
 
             /**
              * Success
@@ -154,6 +164,8 @@ public class MoviesActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                movieLoader.setVisibility(View.GONE);
+
                 // After loading movies successfully remove swipe refresh
                 swipeRefresh.setRefreshing(false);
 
@@ -170,8 +182,21 @@ public class MoviesActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                movieLoader.setVisibility(View.GONE);
                 swipeRefresh.setRefreshing(false);
 
+            }
+
+            @Override
+            public void onCancel() {
+                super.onCancel();
+                movieLoader.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                movieLoader.setVisibility(View.GONE);
             }
         });
 
