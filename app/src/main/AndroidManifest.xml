@@ -21,8 +21,9 @@
             android:parentActivityName=".activities.MoviesActivity">
 
         </activity>
-        <activity android:name=".activities.VideoPlayActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".activities.MoviePlayActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

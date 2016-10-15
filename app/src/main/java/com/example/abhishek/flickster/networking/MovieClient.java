@@ -1,5 +1,6 @@
 package com.example.abhishek.flickster.networking;
 
+import com.example.abhishek.flickster.utils.Config;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,11 +16,7 @@ public class MovieClient {
     /** Tag for the log messages */
     private static final String LOG_TAG = MovieClient.class.getSimpleName();
 
-    /** API KEY */
-    private static final String API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
-    /** API BASE URL */
-    private static final String API_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
 
     /** AsyncHttpClient for API Call */
     private AsyncHttpClient client;
@@ -38,10 +35,26 @@ public class MovieClient {
      */
     public void getMovies(JsonHttpResponseHandler handler) {
 
-        String url = API_BASE_URL;
+        String url = Config.MOVIE_API_URL;
 
         // Setting URL parameters
-        RequestParams params = new RequestParams("api_key", API_KEY);
+        RequestParams params = new RequestParams("api_key", Config.MOVIE_API_KEY);
+
+        // Prep and executing API Call
+        client.get(url, params, handler);
+    }
+
+
+    /**
+     * Get Movie Play Source in JSON Format
+     * @param handler
+     */
+    public void getMovieVideoSource(int movieId, JsonHttpResponseHandler handler) {
+
+        String url = String.format(Config.MOVIE_VIDEO_API_URL,movieId);
+
+        // Setting URL parameters
+        RequestParams params = new RequestParams("api_key", Config.MOVIE_API_KEY);
 
         // Prep and executing API Call
         client.get(url, params, handler);

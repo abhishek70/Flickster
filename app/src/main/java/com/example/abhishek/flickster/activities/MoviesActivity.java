@@ -14,6 +14,7 @@ import com.example.abhishek.flickster.R;
 import com.example.abhishek.flickster.adapters.MoviesAdapter;
 import com.example.abhishek.flickster.models.Movie;
 import com.example.abhishek.flickster.networking.MovieClient;
+import com.example.abhishek.flickster.utils.Constant;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -28,16 +29,26 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 import static com.example.abhishek.flickster.R.id.swipeRefresh;
+import static com.example.abhishek.flickster.utils.Constant.MOVIE_DETAIL_KEY;
 
+/**
+ * Class for showing movie collection loading from external source
+ */
 public class MoviesActivity extends AppCompatActivity {
 
     /** Tag for the log messages */
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
 
+    // Movie client for building url for fetching movie data
     private MovieClient movieClient;
+
+    // Movies Collection
     private ArrayList<Movie> movies;
+
+    // Movies Custom Adapter for loading Movies in list view
     private MoviesAdapter moviesAdapter;
 
+    // ButterKnife View Annotations
     @BindView(R.id.lvMovies) ListView lvMovies;
     @BindView(R.id.swipeRefresh) SwipeRefreshLayout swipeRefresh;
     @BindColor(android.R.color.holo_blue_bright) int blueBright;
@@ -45,15 +56,20 @@ public class MoviesActivity extends AppCompatActivity {
     @BindColor(android.R.color.holo_orange_light) int orangeLight;
     @BindColor(android.R.color.holo_red_light) int redLight;
 
-    public static final String MOVIE_DETAIL_KEY = "movie";
 
+    /**
+     * Method called when the activity is initially loaded
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
+        // ButterKnife View Binding
         ButterKnife.bind(this);
 
+        // Loading swipe container
         loadSwipeRefresh();
 
         // Fetch the movie data remotely and asynchronously
@@ -63,15 +79,22 @@ public class MoviesActivity extends AppCompatActivity {
         setupMovieSelectedListener();
     }
 
+    /**
+     * Swipe Refresh Method
+     */
     private void loadSwipeRefresh() {
 
+        // Called when the user swipe
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
+                // Called fetching movies method
                 fetchMovies();
             }
         });
 
+        // Setting Swipe Color Scheme
         swipeRefresh.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -89,6 +112,7 @@ public class MoviesActivity extends AppCompatActivity {
 
         moviesAdapter = new MoviesAdapter(this, movies);
 
+        // Binding list view to the adapter
         lvMovies.setAdapter(moviesAdapter);
 
         // AsyncHttp Client
@@ -117,8 +141,10 @@ public class MoviesActivity extends AppCompatActivity {
                     // parse into array of movie objects
                     ArrayList<Movie> movies = Movie.fromJson(resultSet);
 
+                    // Adding movies set to the adapter
                     moviesAdapter.addAll(movies);
 
+                    // Notifying adapter for the list view changes
                     moviesAdapter.notifyDataSetChanged();
 
                     Log.d(LOG_TAG, movies.get(0).getOverview());
@@ -128,6 +154,7 @@ public class MoviesActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                // After loading movies successfully remove swipe refresh
                 swipeRefresh.setRefreshing(false);
 
             }
@@ -158,9 +185,11 @@ public class MoviesActivity extends AppCompatActivity {
         lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View item, int position, long rowId) {
+
+                // Creating intent for passing movie detail to movie detail activity
                 Intent i = new Intent(MoviesActivity.this, MovieDetailActivity.class);
                 Movie movie = movies.get(position);
-                i.putExtra(MOVIE_DETAIL_KEY, movie);
+                i.putExtra(Constant.MOVIE_DETAIL_KEY, movie);
                 startActivity(i);
             }
         });
