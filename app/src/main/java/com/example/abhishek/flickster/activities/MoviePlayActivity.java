@@ -48,6 +48,7 @@ public class MoviePlayActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_play);
 
+        // Fetching the data from the Movie Detail Activity through Intent
         Intent intent = getIntent();
         movieId = intent.getIntExtra(Constant.MOVIE_ID, -1);
 
@@ -111,7 +112,6 @@ public class MoviePlayActivity extends YouTubeBaseActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-
 
             }
 

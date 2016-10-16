@@ -7,4 +7,6 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#DDDDDD</color>
+    <color name="colorGray">#444444</color>
+    <color name="colorWarning">#F0aD4E</color>
 </resources>

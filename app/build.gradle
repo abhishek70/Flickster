@@ -20,14 +20,19 @@ android {
     }
 }
 
+ext {
+    supportLibVersion = '24.2.1'  // variable that can be referenced to keep support libs consistent
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:support-v4:24.1.1'
-    compile 'com.android.support:percent:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:percent:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.jakewharton:butterknife:8.4.0'

@@ -41,6 +41,9 @@ public class Movie implements Serializable {
     private String mReleaseDate;
 
 
+    // Movie Popularity
+    private double mPopularity;
+
     /**
      * Getter for Movie Id
      * @return
@@ -97,6 +100,10 @@ public class Movie implements Serializable {
     }
 
 
+    public double getPopularity() {
+        return mPopularity;
+    }
+
     /**
      * Returns a Movie given the expected JSON
      * @param jsonObject
@@ -115,6 +122,7 @@ public class Movie implements Serializable {
             movie.mPosterPath   = jsonObject.getString("poster_path");
             movie.mBackdropPath = jsonObject.getString("backdrop_path");
             movie.mReleaseDate  = jsonObject.getString("release_date");
+            movie.mPopularity   = jsonObject.getDouble("popularity");
 
         } catch (JSONException e) {
 

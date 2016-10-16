@@ -1,6 +1,12 @@
 package com.example.abhishek.flickster.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,6 +87,25 @@ public class MoviesActivity extends AppCompatActivity {
 
         //Setup onClick Listener for the list view
         setupMovieSelectedListener();
+
+        //TODO Set up with Broadcast Receiver
+        // Checking for the internet
+        if(!CheckInternetConnection()) {
+
+            final Snackbar snackBar = Snackbar.make(findViewById(android.R.id.content), R.string.no_connection, Snackbar.LENGTH_INDEFINITE);
+            snackBar.setAction(R.string.retry, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //Intent sendIntent = new Intent(Settings.ACTION_WIFI_SETTINGS));
+
+                    fetchMovies();
+
+                    snackBar.dismiss();
+                }
+            }).setActionTextColor(getResources().getColor(R.color.colorWarning)).show();
+        }
+
     }
 
     /**
@@ -157,8 +182,6 @@ public class MoviesActivity extends AppCompatActivity {
                     // Notifying adapter for the list view changes
                     moviesAdapter.notifyDataSetChanged();
 
-                    Log.d(LOG_TAG, movies.get(0).getOverview());
-
                 } catch (JSONException e) {
 
                     e.printStackTrace();
@@ -187,12 +210,18 @@ public class MoviesActivity extends AppCompatActivity {
 
             }
 
+            /**
+             * Called on canceling the API Call
+             */
             @Override
             public void onCancel() {
                 super.onCancel();
                 movieLoader.setVisibility(View.GONE);
             }
 
+            /**
+             * Called on finishing the API Call
+             */
             @Override
             public void onFinish() {
                 super.onFinish();
@@ -218,5 +247,26 @@ public class MoviesActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+
+    /**
+     * Method for verifying the Internet connection
+     * @return
+     */
+    private boolean CheckInternetConnection() {
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+
+        return false;
     }
 }

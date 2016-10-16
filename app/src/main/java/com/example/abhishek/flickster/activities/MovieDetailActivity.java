@@ -75,8 +75,14 @@ public class MovieDetailActivity extends AppCompatActivity {
         ivMovieImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Initializing the intent
                 Intent setIntent = new Intent(getApplicationContext(), MoviePlayActivity.class);
+
+                // Passing the Movie Id to get the Movie Video Source
                 setIntent.putExtra(Constant.MOVIE_ID, movie.getId());
+
+                // Start the Movie Play Activity
                 startActivity(setIntent);
             }
         });

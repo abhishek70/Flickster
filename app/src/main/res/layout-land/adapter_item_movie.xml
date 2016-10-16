@@ -3,34 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:layout_gravity="center_vertical">
+    android:paddingLeft="20px"
+    android:paddingRight="20px"
+    android:layout_height="120dp">
 
     <ImageView
         android:id="@+id/ivMovieImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:layout_heightPercent="100%"
         app:layout_widthPercent="34%"
-        tools:src="@drawable/poster_placeholder"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        tools:src="@drawable/landscape_placeholder" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivMovieImage"
-        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         app:layout_widthPercent="66%"
-        tools:text="The Magnificent Seven" />
+        tools:text="Star Trek Beyond" />
 
     <TextView
         android:id="@+id/tvOverview"
@@ -38,9 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/ivMovieImage"
-        android:maxLength="150"
         android:padding="10dp"
         android:textSize="12sp"
         app:layout_widthPercent="66%"
-        tools:text="A big screen remake of John Sturges classic western The Magnificent Seven, itself a remake of Akira Kurosawa's Seven Sa" />
+        tools:text="The USS Enterprise crew explores the furthest reaches of uncharted space, where they encounter a mysterious new enemy who puts them and everything the Federation stands for to the test." />
 </android.support.percent.PercentRelativeLayout>
