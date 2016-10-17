@@ -40,6 +40,28 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
     static class ViewHolder {
 
+        // Movie Title
+        @BindView(R.id.tvTitle) TextView tvTitle;
+
+        // Movie Overview
+        @BindView(R.id.tvOverview) TextView tvOverview;
+
+        // Movie Image
+        @BindView(R.id.ivMovieImage) ImageView ivMovieImage;
+
+        // Binding views
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+
+    /**
+     * View Holder Pattern for popular movie layout for faster performance
+     */
+
+    static class PopularViewHolder {
+
         // Added tvTitle Nullable (Optional) for the popular movie
         @Nullable
         @BindView(R.id.tvTitle) TextView tvTitle;
@@ -52,10 +74,11 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         @BindView(R.id.ivMovieImage) ImageView ivMovieImage;
 
         // Binding views
-        ViewHolder(View view) {
+        PopularViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
 
     /**
      * Constructor
@@ -67,7 +90,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
     }
 
     /**
-     * Defines the no. different types of layout
+     * Defines the no. different types of layout views
      * @return
      */
     @Override
@@ -77,7 +100,8 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
 
     /**
-     * Defines the layout for based on the conditional logic
+     * TODO : Needs to refactor and add the logic in Movie model
+     * Defines the layout for specified item based on the conditional logic
      * @param position
      * @return
      */
@@ -114,6 +138,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
             // Load movie view
             convertView = loadMovieView(movie, convertView, parent);
+
         } else {
 
             // Load popular movie view
@@ -210,7 +235,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
     private View loadPopularMovieView(Movie movie, View convertView, ViewGroup parent) {
 
         // Initialize ViewHolder
-        ViewHolder viewHolder = null;
+        PopularViewHolder viewHolder = null;
 
         // Fetching backdrop image
         String imagePath = movie.getBackdropPath();
@@ -222,12 +247,12 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
             // Loading popular item movie xml layout
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item_popular_movie, parent, false);
 
-            viewHolder = new ViewHolder(convertView);
+            viewHolder = new PopularViewHolder(convertView);
 
             convertView.setTag(viewHolder);
         } else {
 
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (PopularViewHolder) convertView.getTag();
         }
 
         viewHolder.ivMovieImage.setImageResource(0);
