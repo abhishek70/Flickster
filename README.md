@@ -40,7 +40,10 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-Coming Soon !!!
+![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/No_connection.gif)
+![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/swipe_refresh.gif)
+![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/Portrait_mode.gif)
+![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/Landscape_mode.gif)
 
 ## Notes
 
