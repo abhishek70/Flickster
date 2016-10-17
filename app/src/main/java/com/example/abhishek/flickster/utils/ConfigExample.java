@@ -2,6 +2,8 @@ package com.example.abhishek.flickster.utils;
 
 /**
  * Created by abhishek on 10/16/16.
+ * Rename the file with Config.java and the class name to Config
+ * Add actual Movie API Key and Youtube API Key
  */
 
 public final class ConfigExample {
