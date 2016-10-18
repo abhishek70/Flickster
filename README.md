@@ -45,6 +45,10 @@ Here's a walkthrough of implemented user stories:
 ![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/Portrait_mode.gif)
 ![Screenshot](https://github.com/abhishek70/Flickster/blob/master/screenshots/Landscape_mode.gif)
 
+GIF created with EZGIF.COM (http://ezgif.com/).
+
+App Icon - ICONFINDER (https://www.iconfinder.com/).
+
 ## Notes
 
 Describe any challenges encountered while building the app.
