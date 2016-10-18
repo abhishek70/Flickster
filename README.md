@@ -35,6 +35,7 @@ The following **bonus** features are implemented:
 The following **additional** features are implemented:
 
 * [ ] Instead of using youtubeplayerview, it should be implement with the youtubeplayer fragment which is recommended by the Google.
+* [x] Added splash screen before launching the movies activity.
 
 ## Video Walkthrough
 
